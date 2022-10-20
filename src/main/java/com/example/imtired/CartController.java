@@ -1,6 +1,7 @@
 package com.example.imtired;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -22,6 +23,7 @@ public class CartController {
     private Label totalPriceLabel;
 
 
+
     @FXML
     public void initialize() throws FileNotFoundException {
         List<CartEntry> entries = ShoppingCart.getInstance().getEntries();
@@ -29,9 +31,11 @@ public class CartController {
 
         if(entries.isEmpty()){
             Label emptyLabel = new Label("Empty cart");
+            emptyLabel.setStyle("-fx-alignment: TOP-CENTER; -fx-font-size: 25; -fx-text-fill:  #9E6240; -fx-font-weight: 800; -fx-padding: 15");
             cartPane.getChildren().add(emptyLabel);
         }else {
             Label shoppingCartTitle = new Label("Shopping cart");
+            shoppingCartTitle.setStyle("-fx-alignment: TOP-CENTER; -fx-font-size: 25; -fx-text-fill:  #9E6240; -fx-font-weight: 800; -fx-padding: 15");
             cartPane.getChildren().add(shoppingCartTitle);
 
             for(CartEntry cartEntry: entries){
@@ -54,9 +58,11 @@ public class CartController {
         layout.setAlignment(Pos.CENTER);
 
         Label totalLabel = new Label("Total : ");
-        totalLabel.setStyle("-fx-font-size:15pt;");
+        totalLabel.setStyle("-fx-font-size: 20; -fx-text-fill:  #9E6240; -fx-font-weight: 800;");
+
 
         this.totalPriceLabel = new Label(String.valueOf(totalPrice));
+        totalPriceLabel.setStyle(" -fx-font-size: 20; -fx-text-fill:  #9E6240; -fx-font-weight: 700;");
 
         layout.getChildren().addAll(totalLabel, this.totalPriceLabel);
         return layout;
@@ -66,24 +72,28 @@ public class CartController {
     private HBox cartEntryView(CartEntry cartEntry) throws FileNotFoundException {
         HBox layout = new HBox();
         layout.setAlignment(Pos.CENTER_LEFT);
+        layout.setPadding(new Insets(6, 0, 6, 0));
 
         FileInputStream input = new FileInputStream(
                 "/Users/User/IdeaProjects/imtired/src/main/resources/com/example/imtired/tir.jpg");
 
         Image image = new Image(input);
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(50);
-        imageView.setFitWidth(50);
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
 
         Label productName = new Label(cartEntry.getProduct().getDescription());
         productName.setPrefWidth(100);
-        productName.setStyle("-fx-font-size:15pt; -fx-padding: 5px");
+        productName.setStyle("-fx-font-size:20; -fx-padding: 5px; -fx-text-fill: #f8f2dc; -fx-font-weight: 800; -fx-pref-width: 150");
+
 
         Label quantity = new Label(String.valueOf(cartEntry.getQuantity()));
-        quantity.setStyle("-fx-padding: 5px");
+        quantity.setStyle("-fx-font-size: 20; -fx-text-fill: #9E6240; -fx-font-weight: 800");
+        quantity.setPadding(new Insets(7, 10, 7, 10));
 
         Button plusButton = new Button("+");
-        plusButton.setStyle("-fx-padding: 5px");
+        plusButton.setStyle("-fx-background-color:  #CD4631; -fx-text-fill: #f8f2dc; -fx-font-size:15; -fx-font-weight: 700");
+        plusButton.setPadding(new Insets(7, 10, 7, 10));
         plusButton.setUserData(cartEntry.getProduct().getDescription());
         plusButton.setOnAction( e -> {
             String name = (String) ((Node)e.getSource()).getUserData();
@@ -93,7 +103,8 @@ public class CartController {
         });
 
         Button minusButton = new Button("-");
-        minusButton.setStyle("-fx-padding: 5px");
+        minusButton.setStyle("-fx-background-color:  #CD4631; -fx-text-fill: #f8f2dc; -fx-font-size:15; -fx-font-weight: 700");
+        minusButton.setPadding(new Insets(7, 10, 7, 10));
         minusButton.setUserData(cartEntry.getProduct().getDescription());
         minusButton.setOnAction( e -> {
             String name = (String) ((Node)e.getSource()).getUserData();
@@ -103,7 +114,8 @@ public class CartController {
         });
 
         Label price = new Label(String.valueOf("KZT" + cartEntry.getProduct().getPrice()));
-        price.setStyle("-fx-padding: 5px");
+        price.setStyle("-fx-font-size:15; -fx-text-fill: #9E6240; -fx-font-weight: 700; -fx-padding: 5");
+
 
         layout.getChildren().addAll(imageView, productName, plusButton, quantity, minusButton, price);
 

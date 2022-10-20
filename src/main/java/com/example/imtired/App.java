@@ -18,7 +18,7 @@ public class App extends Application {
         URL file = new File("/Users/User/IdeaProjects/imtired/src/main/java/com/example/imtired/cartui.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(file);
         stage.setTitle("Bakery");
-        stage.setScene(new Scene(root, 640, 420));
+        stage.setScene(new Scene(root, 900, 600));
         stage.show();
         stage.setResizable(false);
     }
